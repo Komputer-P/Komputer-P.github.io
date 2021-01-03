@@ -1,2 +1,2 @@
 # Komputer-P.github.io
-Web Host
+For Static Web Study
