@@ -4,19 +4,50 @@
   <title>WEB1 - JavaScript</title>
   <meta charset="utf-8">
   <!--<link rel="stylesheet" href="style.css"> -->
+
+  <script>
+  var Link = {
+    setColor:function (color) {
+      var alist = document.querySelectorAll('a');
+      for(var i=0; i<alist.length; i++) {
+        console.log(alist[i]);
+        alist[i].style.color = color;
+      }
+    }
+  }
+
+  var Body = {
+      setColor:function (color) {
+        document.querySelector('body').style.color = color;
+      },
+      setBackgroundColor:function(color) {
+        document.querySelector('body').style.backgroundColor = color;
+      }
+  }
+
+    function nightdayHandler(self) {
+      var target = document.querySelector('body');
+      if(self.value === 'night') {
+        Body.setBackgroundColor('black');
+        Body.setColor('white');
+        self.value = 'day';
+
+        Link.setColor('powderblue');
+      } else {
+        Body.setBackgroundColor('white');
+        Body.setColor("black");
+        self.value = 'night';
+
+        Link.setColor('blue');
+      }
+    }
+  </script>
 </head>
 
 <body>
   <h1><a href="index.html">WEB</a></h1>
 
-  <input type="button" value="Night" onclick="
-    document.querySelector('body').style.backgroundColor = 'black';
-    document.querySelector('body').style.color = 'white';
-  ">
-  <input type="button" value="Day" onclick="
-    document.querySelector('body').style.backgroundColor = 'white';
-    document.querySelector('body').style.color = 'black';
-  ">
+  <input type="button" value="night" onclick="nightdayHandler(this)">
 
   <div id="grid">
     <ol>
@@ -31,5 +62,7 @@
       <p>JavaScript often abbreviated as JS, is a programming language that conforms to the ECMAScript specification. JavaScript is high-level, often just-in-time compiled, and multi-paradigm. It has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions.</p>
     </div>
   </div>
+
+
 </body>
 </html>
