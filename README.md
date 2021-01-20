@@ -1,2 +1,2 @@
-# Komputer-P.github.io
-For Static Web Study
+# Web_Programming
+For Web Programming Study
