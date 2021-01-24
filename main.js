@@ -3,6 +3,8 @@ var fs = require('fs');
 var url = require('url');
 var qs = require('querystring');
 var template = require('./lib/template.js');
+var path = require('path');
+var sanitizeHtml = require('sanitize-html');
 
 var app = http.createServer(function(request,response){
     var _url = request.url;
@@ -22,13 +24,16 @@ var app = http.createServer(function(request,response){
         });
       } else {
         fs.readdir('./data', function(err, fileList) {
-          fs.readFile(`data/${queryData.id}`,'utf8',function(err,description) {
+          var filteredID = path.parse(queryData.id).base;
+          fs.readFile(`data/${filteredID}`,'utf8',function(err,description) {
             var title = queryData.id;
-            var list = template.list(fileList);
+            var sanitizedTitle = sanitizeHtml(title);
+            var sanitizedDescription = sanitizeHtml(description)
 
-            var html = template.HTML(title,list,`<h2>${title}</h2>${description}`,`<a href="/create">Create</a> <a href="/update?id=${title}">Update</a>
+            var list = template.list(fileList);
+            var html = template.HTML(sanitizedTitle,list,`<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,`<a href="/create">Create</a> <a href="/update?id=${sanitizedTitle}">Update</a>
             <form action="delete_process" method="post">
-              <input type="hidden" name="id" value="${title}">
+              <input type="hidden" name="id" value="${sanitizedTitle}">
               <input type="submit" value="Delete">
             </form>`);
 
@@ -78,7 +83,8 @@ var app = http.createServer(function(request,response){
     }
     else if(pathname === '/update') {
       fs.readdir('./data', function(err, fileList) {
-        fs.readFile(`data/${queryData.id}`,'utf8',function(err,description) {
+        var filteredID = path.parse(queryData.id).base;
+        fs.readFile(`data/${filteredID}`,'utf8',function(err,description) {
           var title = queryData.id;
           var list = template.list(fileList);
 
@@ -128,8 +134,9 @@ var app = http.createServer(function(request,response){
       request.on('end',function() {
         var post = qs.parse(body);
         var id = post.id;
+        var filteredID = path.parse(id).base;
 
-        fs.unlink(`data/${id}`,function(err) {
+        fs.unlink(`data/${filteredID}`,function(err) {
           response.writeHead(302, {Location: `/`});
           response.end();
         });

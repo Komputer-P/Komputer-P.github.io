@@ -1,0 +1,25 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "For Web Programming Study",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Komputer-P/Web_Programming.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Komputer-P/Web_Programming/issues"
+  },
+  "homepage": "https://github.com/Komputer-P/Web_Programming#readme",
+  "dependencies": {
+    "sanitize-html": "^2.3.1"
+  }
+}
