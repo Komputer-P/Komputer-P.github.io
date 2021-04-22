@@ -123,7 +123,9 @@ class App extends Component {
               alert("deleted!");
             }
            } else {
-
+            this.setState({
+              mode:_mode
+            });
           }
 
           this.setState({
